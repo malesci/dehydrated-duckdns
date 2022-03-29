@@ -13,6 +13,19 @@
     - Copy the DuckDNS token (listed at the top of the page where account details are displayed) from `duckdns.org` and paste into the `token` option.
     - Update the `domains` option with the full domain name you registered. E.g., `my-domain.duckdns.org`.
 
+## Docker-compose sample usage
+```yaml
+version: '3'
+
+services:  
+  dehydrated-duckdns:
+    container_name: dehydrated-duckdns
+    image: alescim/dehydrated-duckdns
+    volumes:
+      - "${PWD}/dehydrated-duckdns/data/:/data"
+    restart: unless-stopped
+```
+
 ## Configuration
 
 Make a copy of `dehydrated-duckdns/data/options.example.json` file as `dehydrated-duckdns/data/options.json`
