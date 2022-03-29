@@ -6,28 +6,29 @@ on:
     branches:
       - main
 
-# Starts jobs and sets the type of runner (Windows) they will run on
+# Starts jobs and sets the type of runner they will run on
 jobs:
   build-and-publish-to-gh:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
-
-    # Checks out repository so your workflow can access it
-    - uses: actions/checkout@v1
-    
-    # Use docker login
-    - name: Login to DockerHub
-      uses: docker/login-action@v1 
-      with:
-        username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
-        password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
-
-    # Build and push the image to Container Registry
-    - name: Build and Push container to registry
-      run: |
-        # Build and tag
-        docker build --file=Dockerfile -t ${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:latest -t ${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:${{ github.sha }} .
-        
-        # Push
-        docker push ${{ secrets.CONTAINER_REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }} --all-tags
+      - # Checks out repository so your workflow can access it
+        name: Checkout 
+        uses: actions/checkout@v2
+      - # Use docker login
+        name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - # Build and push the image to Container Registry
+        name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/dehydrated-duckdns:latest
