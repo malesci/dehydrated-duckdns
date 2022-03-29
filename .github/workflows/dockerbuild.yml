@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 # Starts jobs and sets the type of runner they will run on
 jobs:
