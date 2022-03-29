@@ -1,6 +1,6 @@
 # Dehydrated DuckDNS
 
-## Solution inspired by the official Home Assistant Add-on addon: DuckDNS and dehydrated-io projects
+## Solution inspired by the official [Home Assistant Add-on addon: DuckDNS](https://github.com/home-assistant/addons/tree/master/duckdns#home-assistant-add-on-duckdns) and [dehydrated-io](https://github.com/dehydrated-io/dehydrated#dehydrated-) projects
 
 ## This installation is stand-alone and allows you to use Dehydrated as a client for signing certificates and DuckDNS
 
