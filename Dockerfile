@@ -6,7 +6,7 @@ ARG DEHYDRATED_VERSION=0.7.0
 RUN apk add --update curl && \
     rm -rf /var/cache/apk/*
 
-RUN apk add --no-cache openssl curl \
+RUN apk add --no-cache openssl curl bash \
   && curl -s -o /usr/bin/dehydrated \
     "https://raw.githubusercontent.com/lukas2511/dehydrated/v${DEHYDRATED_VERSION}/dehydrated" \
   && chmod a+x /usr/bin/dehydrated
