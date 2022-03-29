@@ -14,4 +14,5 @@ RUN apk add --no-cache openssl curl \
 # Copy datadedd
 COPY data/*.sh /
 
+RUN chmod +x /run.sh
 CMD [ "/run.sh" ]
