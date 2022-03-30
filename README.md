@@ -114,6 +114,31 @@ A list aliases of domains configured on the `domains` option.
 This is useful in cases where you would like to use your own domain.
 Create a CNAME record to point at the DuckDNS subdomain and set this value accordingly.
 
+For example:
+
+```json
+{
+  "domains": [
+    "my-domain.duckdns.org"
+  ],
+  "aliases": [
+    {
+      "domain": "ha.my-domain.com",
+      "alias": "my-domain.duckdns.org"
+    }
+  ]
+}
+```
+
+Don't add your custom domain name to the `domains` array. For certificate creation, all unique domains and aliases are used.
+
+Also, don't forget to make sure the dns-01 challenge can reach Duckdns. It might be required to add a specific CNAME for that:
+
+```
+CNAME _acme-challenge.<own-domain>    _acme-challenge.<domain>.duckdns.org
+CNAME                 <own-domain>                    <domain>.duckdns.org
+```
+
 ### Option: `seconds`
 
 The number of seconds to wait before updating DuckDNS subdomains and renewing Let's Encrypt certificates.
