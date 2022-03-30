@@ -8,11 +8,11 @@ CONFIG_PATH=/data/options.json
 LE_UPDATE="0"
 
 # DuckDNS
-IPV4=$(jq --raw-output '.ipv4' $CONFIG_PATH)
-IPV6=$(jq --raw-output '.ipv6' $CONFIG_PATH)
+if [ "$(jq --raw-output '.ipv4' $CONFIG_PATH)" != null ]; then IPV4=$(jq --raw-output '.ipv4' $CONFIG_PATH); else  IPV4=""; fi
+if [ "$(jq --raw-output '.ipv6' $CONFIG_PATH)" != null ]; then IPV6=$(jq --raw-output '.ipv4' $CONFIG_PATH); else  IPV6=""; fi
 
 TOKEN=$(jq --raw-output '.token' $CONFIG_PATH)
-DOMAINS=$(jq --raw-output '.domains[]' $CONFIG_PATH)
+DOMAINS=$( (jq --raw-output '.domains[]' $CONFIG_PATH) | sed -e 's/ /,/g')
 WAIT_TIME=$(jq --raw-output '.seconds' $CONFIG_PATH)
 ALGO=$(jq --raw-output '.lets_encrypt.algo' $CONFIG_PATH)
 ACCEPT_TERMS=$(jq --raw-output '.lets_encrypt.accept_terms' $CONFIG_PATH)
